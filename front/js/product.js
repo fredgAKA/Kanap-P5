@@ -62,11 +62,15 @@ function addToCart(article) {
 
   //Ecouter le panier avec 2 conditions couleur non nulle et quantité entre 1 et 100
   okCart.addEventListener("click", (event) => {
-    if (
-      quantityChoice.value > 0 &&
-      quantityChoice.value <= 100 &&
-      quantityChoice.value != 0
-    ) {
+    
+    
+    if (colorChoice.value == false) {
+      confirm("Veuillez sélectionner une couleur");
+    } else if (quantityChoice.value == 0) {
+      confirm("Veuillez sélectionner le nombre d'articles souhaités")
+    } else {
+      alert("Votre article a bien été ajouté au panier");
+    
       //Recupération du choix de la couleur
       let colorKanap = colorChoice.value;
 
@@ -88,15 +92,7 @@ function addToCart(article) {
       // local storage init
       let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
-      // pop-up
-      const popupConfirmation = () => {
-        if (
-          window.confirm(`Votre commande de ${quantityKanap} ${article.name} ${colorKanap} est ajoutée au panier
-Pour consulter votre panier, cliquez sur OK`)
-        ) {
-          window.location.href = "cart.html";
-        }
-      };
+
 
       //Importation dans le local storage
       //Si le panier comporte déjà au moins 1 article

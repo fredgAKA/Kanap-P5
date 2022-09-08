@@ -3,6 +3,9 @@ let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 console.table(produitLocalStorage);
 const positionEmptyCart = document.querySelector("#cart__items");
 
+
+// C'est dans cette partie qu'il faudra créer l'array
+
 // Si le panier est vide
 function getCart(){
     if (produitLocalStorage === null || produitLocalStorage == 0) {
@@ -51,7 +54,7 @@ function getCart(){
         // Insertion du prix
         let productPrice = document.createElement("p");
         productItemContentTitlePrice.appendChild(productPrice);
-        productPrice.innerHTML = produitLocalStorage[produit].prixProduit + " €";
+        productPrice.innerHTML = produitLocalStorage[produit].prixProduit + "€";
     
         // Insertion de l'élément "div"
         let productItemContentSettings = document.createElement("div");
@@ -91,6 +94,7 @@ function getCart(){
     }
     }}
     getCart();
+    
 
     function getTotals(){
 
@@ -164,7 +168,7 @@ function deleteProduct() {
 
             //Alerte produit supprimé et refresh
             alert("Ce produit a bien été supprimé du panier");
-            location.reload();
+            location.reload()
         })
     }
 }
@@ -192,7 +196,7 @@ function getForm() {
 
     //Ecoute de la modif de l'adresse dans le formulaire
     form.address.addEventListener('change', function() {
-        valideAddress(this);
+        validAddress(this);
     });
 
     //Ecoute de la modif de la ville dans le formulaire
@@ -202,7 +206,7 @@ function getForm() {
 
     //Ecoute de la modif de l'email dans le formulaire
     form.email.addEventListener('change', function() {
-        valideEmail(this);
+        validEmail(this);
     });
 
     //Validation du prénom
@@ -212,7 +216,7 @@ function getForm() {
         if (charRegExp.test(inputFirstName.value)) {
             firstNameErrorMsg.innerHTML = '';
         } else {
-            firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            firstNameErrorMsg.innerHTML = 'Veuillez renseigner un prénom valide.';
         }
     };
 
@@ -223,7 +227,7 @@ function getForm() {
         if (charRegExp.test(inputLastName.value)) {
             lastNameErrorMsg.innerHTML = '';
         } else {
-            lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            lastNameErrorMsg.innerHTML = 'Veuillez renseigner un nom de famille valide.(ex:Jean)';
         }
     };
 
@@ -234,7 +238,7 @@ function getForm() {
         if (addressRegExp.test(inputAddress.value)) {
             addressErrorMsg.innerHTML = '';
         } else {
-            addressErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            addressErrorMsg.innerHTML = 'Veuillez renseigner une adresse valide.(ex:1 Rue Dupont 75000)';
         }
     };
 
@@ -245,7 +249,7 @@ function getForm() {
         if (charRegExp.test(inputCity.value)) {
             cityErrorMsg.innerHTML = '';
         } else {
-            cityErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+            cityErrorMsg.innerHTML = 'Veuillez renseigner une ville valide.(ex:Paris)';
         }
     };
 
@@ -256,7 +260,7 @@ function getForm() {
         if (emailRegExp.test(inputEmail.value)) {
             emailErrorMsg.innerHTML = '';
         } else {
-            emailErrorMsg.innerHTML = 'Veuillez renseigner votre email.';
+            emailErrorMsg.innerHTML = 'Veuillez renseigner un email valide.(ex:exemple@gmail.com)';
         }
     };
 }

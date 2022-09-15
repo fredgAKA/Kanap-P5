@@ -1,46 +1,38 @@
-// Récupération des articles de l'API
-async function getArticles() {
-  var articlesCatch = await fetch("http://localhost:3000/api/products");
-  return await articlesCatch.json();
+//Contact de l'API
+fetch("http://localhost:3000/api/products")
+  .then(function (res) {
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  .then (function(value){
+    addArticles(value)
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
+
+// Afficher tout les articles  
+function addArticles(articles){
+  let fragment = document.createDocumentFragment()
+  for (let article of articles) {
+    let card = document.createElement("a")
+    card.setAttribute("href", `./product.html?id=${article._id}`)
+    let baliseArticle = document.createElement("article")
+    let image = document.createElement("img")
+    image.src = article.imageUrl
+    image.alt = article.altTxt
+    baliseArticle.appendChild(image)
+    let title = document.createElement("h3")
+    title.classList.add("productName")
+    title.textContent = article.name
+    baliseArticle.appendChild(title)
+    let para = document.createElement("p")
+    para.classList.add("productDescription")
+    para.textContent = article.description
+    baliseArticle.appendChild(para)
+    card.appendChild(baliseArticle)
+  fragment.appendChild(card)
+  }
+  document.getElementById('items').appendChild(fragment)
 }
-
-// Répartition des données de l'API dans le DOM
-async function fillSection() {
-  var result = await getArticles()
-    .then(function (resultAPI) {
-      const articles = resultAPI;
-      console.table(articles);
-      for (let article in articles) {
-        // a
-        let productLink = document.createElement("a");
-        document.querySelector(".items").appendChild(productLink);
-        productLink.href = `product.html?id=${resultAPI[article]._id}`;
-
-        // article
-        let productArticle = document.createElement("article");
-        productLink.appendChild(productArticle);
-
-        // img
-        let productImg = document.createElement("img");
-        productArticle.appendChild(productImg);
-        productImg.src = resultAPI[article].imageUrl;
-        productImg.alt = resultAPI[article].altTxt;
-
-        // h3
-        let productName = document.createElement("h3");
-        productArticle.appendChild(productName);
-        productName.classList.add("productName");
-        productName.innerHTML = resultAPI[article].name;
-
-        // p
-        let productDescription = document.createElement("p");
-        productArticle.appendChild(productDescription);
-        productDescription.classList.add("productName");
-        productDescription.innerHTML = resultAPI[article].description;
-      }
-    })
-    .catch(function (error) {
-      return error;
-    });
-}
-fillSection();

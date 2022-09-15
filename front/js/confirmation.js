@@ -1,8 +1,11 @@
-function main(){
-  const idNode = document.getElementById("orderId");
-  idNode.innerText = localStorage.getItem("orderId");
-  console.log(localStorage.getItem("orderId"))
-  localStorage.clear();
-}
+//////*********** Affichage ID Commande page confirmation **********///////////
 
-main();
+//On récupère l'ID
+function idPage() {
+  let url = new URL(window.location.href);
+  let idArticle = url.searchParams.get("id");
+  if (idArticle != undefined) {
+    document.querySelector("#orderId").textContent = idArticle;
+  }
+}
+idPage();
